@@ -1,0 +1,66 @@
+html, body {
+  text-align: center;
+}
+
+.container {
+  margin: 50px auto;
+  width: 400px;
+  height:auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.sect {
+  height: 150px;
+  width: 150px;
+  margin: 20px 25px;
+  background: #FB321B;
+  border-radius: 100%;
+  transition: all 0.3s;
+  text-align: center;
+  line-height: 150px;
+  color: whitesmoke;
+  font-size: 32px;
+}
+
+.sect span {
+  display: none;
+}
+.container div:hover {
+  cursor: pointer;
+}
+
+.info {
+  font-family: 'Ubuntu';
+  font-size: 18px;
+  text-align: center;
+  color: #888;
+}
+
+.overMsg {
+  position: absolute;
+  margin: 170px auto;
+  right: 0;
+  left: 0;
+  color: #888;
+  font-size: 32px;
+  display: none;
+}
+
+button {
+  margin: 10px 5px;
+}
+.green {
+  background: #64d153;
+}
+.red {
+  background: #d15252;
+}
+.blue {
+  background: #5398f1;
+}
+.yellow {
+  background: #f2ef54;
+}

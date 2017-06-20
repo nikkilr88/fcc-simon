@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+
+    <audio id="beep0" src="https://s3.amazonaws.com/freecodecamp/simonSound1.mp3" type="audio/mp3"></audio>
+
+    <audio id="beep1" src="https://s3.amazonaws.com/freecodecamp/simonSound2.mp3" type="audio/mp3"></audio>
+
+    <audio id="beep2" src="https://s3.amazonaws.com/freecodecamp/simonSound3.mp3" type="audio/mp3"></audio>
+
+    <audio id="beep3" src="https://s3.amazonaws.com/freecodecamp/simonSound4.mp3" type="audio/mp3"></audio>
+
+
+    <span class="overMsg"></span>
+    <div class="container">
+        <div class="sect green"><span>X</span></div>
+        <div class="sect red"><span>X</span></div>
+        <div class="sect yellow"><span>X</span></div>
+        <div class="sect blue"><span>X</span></div>
+    </div>
+    <div class="info">
+        <strong>Pattern Length:</strong>
+        <span id="len"></span>
+    </div>
+
+    <button id="start">Start</button><button id="reset">Reset</button>
+    <br /> Strict Mode:
+    <input type="radio" name="strict" value="on" />On
+    <input type="radio" name="strict" value="off" checked />Off
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+</body>
+
+</html>
