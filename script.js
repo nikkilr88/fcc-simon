@@ -9,11 +9,13 @@ var incorrect = false;
 var win = false;
 var rand;
 
+//Beep audio
 var beep0 = $('#beep0')[0];
 var beep1 = $('#beep1')[0];
 var beep2 = $('#beep2')[0];
 var beep3 = $('#beep3')[0];
 
+//Set strict mode
 $('input[name="strict"]:radio').on('change', function() {
     if ($('input[name="strict"]:checked').val() === 'on') {
         strictMode = true;
@@ -21,7 +23,6 @@ $('input[name="strict"]:radio').on('change', function() {
     else {
         strictMode = false;
     }
-    console.log(strictMode);
 });
 
 //Computer pattern
@@ -32,33 +33,24 @@ function pattern() {
         rand = Math.floor(Math.random() * 4);
         computerPattern.push(rand);
     }
+
     //Animate circles
     computerPattern.forEach(function(item) {
         setTimeout(function() {
 
-            $(".container div").eq(item).css("transform", "scale(1.1)").delay(300).queue(function(next) {
-                $(this).css("transform", "scale(1)");
-                next();
-            });
-            switch (item) {
-                case 0:
-                    beep0.play();
-                    break;
-                case 1:
-                    beep1.play();
-                    break;
-                case 2:
-                    beep2.play();
-                    break;
-                case 3:
-                    beep3.play();
-                    break;
-            }
+            //Play beep and animate divs
+            animate(item);
+
         }, 750 + offset);
+
+        //Update offset
         offset += 750;
     });
+
     //Show pattern length
     $('#len').text(computerPattern.length);
+
+    //Start user's turn
     person();
 }
 
@@ -69,6 +61,7 @@ function person() {
     var clicks = 0;
     var clickedDiv;
     var length = computerPattern.length;
+
     //Clear event listeners
     $(".sect").off();
     //Circle click function
@@ -76,20 +69,9 @@ function person() {
         //Get index of clicked div
         clickedDiv = $(this).index();
 
-        switch (clickedDiv) {
-            case 0:
-                beep0.play();
-                break;
-            case 1:
-                beep1.play();
-                break;
-            case 2:
-                beep2.play();
-                break;
-            case 3:
-                beep3.play();
-                break;
-        }
+        //Play beep and animate div
+        animate(clickedDiv);
+
         //If user enters incorrect pattern
         if (clickedDiv != computerPattern[clicks]) {
             //If strict, alert and start over
@@ -97,48 +79,74 @@ function person() {
                 reset();
                 $('.overMsg').text('Game Over!').show();
             }
-            //If wrong, set var to true
+
+            //If wrong, set var to true and reset vars
             incorrect = true;
-            //Reset arr and clicks
+
             personPattern = [];
-            console.log(personPattern);
+
             clicks = 0;
+
             //Show 'X' 
-            $('.sect').eq(clickedDiv).find('span').fadeIn().delay(50).fadeOut();
-            pattern();
+            $('.sect').eq(clickedDiv).find('span').fadeIn().fadeOut();
+
+            //Call computer function
+            setTimeout(pattern, 1000);
         }
         else {
             incorrect = false;
+
             //Increase number of clicks
             clicks++;
-            //Animation on circle click
-            $(this).css("transform", "scale(1.1)").delay(300).queue(function(next) {
-                $(this).css("transform", "scale(1)");
-                next();
-            });
 
             //Push index to array
             personPattern.push(clickedDiv);
+
             //If num. of clicks is equal to Comp div length
             if (clicks === length) {
-                setTimeout('check()', 700);
-                console.log("p", personPattern);
-                console.log("c", computerPattern);
+                setTimeout(check, 700);
             }
         }
     });
 
 }
+
+function animate(item) {
+
+    $(".container div").eq(item).css({ "transform": "scale(1.1)", "z-index": "999" }).delay(300).queue(function(next) {
+        $(this).css({ "transform": "scale(1)" }).delay(300).queue(function(next) {
+            $(this).css({ "z-index": "0" });
+            next();
+        });
+        next();
+    });
+
+    switch (item) {
+        case 0:
+            beep0.play();
+            break;
+        case 1:
+            beep1.play();
+            break;
+        case 2:
+            beep2.play();
+            break;
+        case 3:
+            beep3.play();
+            break;
+    }
+}
+
 //Check the whole pattern
 function check() {
     for (var i = computerPattern.length; i--;) {
         if (computerPattern[i] !== personPattern[i]) {
-            //console.log("not same");
+            return;
         }
         else {
             console.log("same");
             incorrect = false;
-            if (personPattern.length === 20) {
+            if (personPattern.length === 3) {
                 reset();
                 win = true;
                 $('.overMsg').text('You Win!').show();
