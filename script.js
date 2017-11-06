@@ -1,19 +1,18 @@
 /* global $ */
 
-var computerPattern = [];
-var personPattern = [];
-var offset = 0;
-var patternCnt = 0;
-var strictMode = false;
-var incorrect = false;
-var win = false;
-var rand;
+var computerPattern = [],
+    personPattern = [],
+    offset = 0,
+    strictMode = false,
+    incorrect = false,
+    win = false,
+    rand;
 
 //Beep audio
-var beep0 = $('#beep0')[0];
-var beep1 = $('#beep1')[0];
-var beep2 = $('#beep2')[0];
-var beep3 = $('#beep3')[0];
+var beep0 = $('#beep0')[0],
+    beep1 = $('#beep1')[0],
+    beep2 = $('#beep2')[0],
+    beep3 = $('#beep3')[0];
 
 //Set strict mode
 $('input[name="strict"]:radio').on('change', function() {
@@ -58,9 +57,10 @@ function pattern() {
 function person() {
     //Set/reset variables
     personPattern = [];
-    var clicks = 0;
-    var clickedDiv;
-    var length = computerPattern.length;
+    
+    var clicks = 0,
+        clickedDiv,
+        length = computerPattern.length;
 
     //Clear event listeners
     $(".sect").off();
@@ -146,7 +146,7 @@ function check() {
         else {
             console.log("same");
             incorrect = false;
-            if (personPattern.length === 3) {
+            if (personPattern.length === 20) {
                 reset();
                 win = true;
                 $('.overMsg').text('You Win!').show();
@@ -164,7 +164,6 @@ function reset() {
     offset = 0;
     computerPattern = [];
     personPattern = [];
-    patternCnt = 0;
     incorrect = false;
     win = false;
     $('#len').text(computerPattern.length);
